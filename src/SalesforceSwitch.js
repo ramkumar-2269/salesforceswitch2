@@ -142,17 +142,12 @@ const SalesforceSwitch = () => {
   }
 
   const handleLogout = () => {    
-    var salesforceLogoutUrl = 'https://login.salesforce.com/services/auth/sso/logout';
-
-    // Redirect URI (should match the one configured in your connected app)
-    var redirectUri = 'https://thunderous-dolphin-396c8b.netlify.app';
-
-    // Build the logout URL with the logout parameter and redirect URI
-    var logoutUrl = salesforceLogoutUrl + '?logout=true&redirect_uri=' + encodeURIComponent(redirectUri);
-
-    // Redirect the user to the logout URL
-    window.location.href = logoutUrl;
-
+    window.location.href=`${instanceUrl}/secur/logout.jsp`;
+    setAccessToken(null);
+    setInstanceUrl(null);
+    localStorage.removeItem(accessToken);
+    localStorage.removeItem(instanceUrl);
+    window.location.href = `${redirectUri}`
   }
 
 
