@@ -9,7 +9,6 @@ const SalesforceSwitch = () => {
   const [validationRules, setValidationRules] = useState([]);
   const redirectUri = 'https://thunderous-dolphin-396c8b.netlify.app';
   const [showModal, setShowModal] = useState(false);
-  const [loginUrl, setLoginUrl] = useState('');
 
 
   useEffect(() => {
@@ -20,21 +19,21 @@ const SalesforceSwitch = () => {
     if (accessToken && instanceUrl) {
       setAccessToken(accessToken);
       setInstanceUrl(instanceUrl);
-
-      window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, []);
 
+  //Login function
   const handleLogin = () => {
     let clientId = '3MVG9pRzvMkjMb6mE2LIHvgrZZnFLzUe34sEfKwfU5ER1BFmoOqDAWgcd.xwtKVKq7eURSTRl0YDpygc_otJ7';
     
     const salesforceInstanceUrl = 'https://login.salesforce.com'
-    const loginUrl_ = `${salesforceInstanceUrl}/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
-    setLoginUrl(loginUrl_)
+    const loginUrl = `${salesforceInstanceUrl}/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
+
     window.location.href = loginUrl;
 
   };
 
+  //To fetch all the validation rules
   const getValidationRules = async () => {
     try {
       const response = await axios.get(
@@ -79,6 +78,7 @@ const SalesforceSwitch = () => {
   };
   
 
+  //handle checkbox changes
   const handleCheckboxChange = (ruleId) => {
     setValidationRules(prevRules =>
       prevRules.map(rule =>
@@ -88,8 +88,8 @@ const SalesforceSwitch = () => {
   };
 
   
+  //Deploying each rule changes
   const deployChanges = (ruleId,isActive) => {
-
     axios
       .patch(
         `${instanceUrl}/services/data/v54.0/tooling/sobjects/ValidationRule/${ruleId}`,
@@ -133,6 +133,7 @@ const SalesforceSwitch = () => {
     setShowModal(false);
   };
 
+  //To enable all rules to active/not active
   const enableAll = (status) =>{
    const updatedRules = validationRules.map((rule)=>({
     ...rule,
@@ -142,13 +143,13 @@ const SalesforceSwitch = () => {
    console.log(validationRules)
   }
 
+  //Logout function
   const handleLogout = () => {    
     window.location.href=`${instanceUrl}/secur/logout.jsp`;
     setAccessToken(null);
     setInstanceUrl(null);
     localStorage.removeItem(accessToken);
     localStorage.removeItem(instanceUrl);
-    setLoginUrl('');
     window.location.href = `${redirectUri}`
   }
 
