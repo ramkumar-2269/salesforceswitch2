@@ -7,7 +7,7 @@ const SalesforceSwitch = () => {
   const [accessToken, setAccessToken] = useState('');
   const [instanceUrl, setInstanceUrl] = useState('');
   const [validationRules, setValidationRules] = useState([]);
-  const redirectUri = 'http://localhost:3000/callback';
+  const redirectUri = 'https://thunderous-dolphin-396c8b.netlify.app';
   const [showModal, setShowModal] = useState(false);
 
 
