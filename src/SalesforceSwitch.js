@@ -9,6 +9,7 @@ const SalesforceSwitch = () => {
   const [validationRules, setValidationRules] = useState([]);
   const redirectUri = 'https://thunderous-dolphin-396c8b.netlify.app';
   const [showModal, setShowModal] = useState(false);
+  const [loginUrl, setLoginUrl] = useState('');
 
 
   useEffect(() => {
@@ -28,8 +29,8 @@ const SalesforceSwitch = () => {
     let clientId = '3MVG9pRzvMkjMb6mE2LIHvgrZZnFLzUe34sEfKwfU5ER1BFmoOqDAWgcd.xwtKVKq7eURSTRl0YDpygc_otJ7';
     
     const salesforceInstanceUrl = 'https://login.salesforce.com'
-    const loginUrl = `${salesforceInstanceUrl}/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
-
+    const loginUrl_ = `${salesforceInstanceUrl}/services/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}`;
+    setLoginUrl(loginUrl_)
     window.location.href = loginUrl;
 
   };
@@ -147,6 +148,7 @@ const SalesforceSwitch = () => {
     setInstanceUrl(null);
     localStorage.removeItem(accessToken);
     localStorage.removeItem(instanceUrl);
+    setLoginUrl('');
     window.location.href = `${redirectUri}`
   }
 
