@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './SalesforceSwitch.css'
+import { Modal } from 'react-bootstrap';
 
 const SalesforceSwitch = () => {
   const [accessToken, setAccessToken] = useState('');
   const [instanceUrl, setInstanceUrl] = useState('');
   const [validationRules, setValidationRules] = useState([]);
   const redirectUri = 'http://localhost:3000/callback';
+  const [showModal, setShowModal] = useState(false);
 
 
   useEffect(() => {
@@ -120,7 +122,15 @@ const SalesforceSwitch = () => {
     for(let i=0;i<validationRules.length;i++){
       deployChanges(validationRules[i].Id,validationRules[i].Active);
     }
+    setShowModal(true);
+    setTimeout(() => {
+      handleCloseModal();
+    }, 5000);
   }
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const enableAll = (status) =>{
    const updatedRules = validationRules.map((rule)=>({
@@ -132,9 +142,11 @@ const SalesforceSwitch = () => {
   }
 
   const handleLogout = () => {    
-    window.location.href=`${instanceUrl}/secur/logout.jsp?retURL=https://login.salesforce.com`;
+    window.location.href=`${instanceUrl}/secur/logout.jsp`;
     setAccessToken(null);
     setInstanceUrl(null);
+    localStorage.removeItem(accessToken);
+    localStorage.removeItem(instanceUrl);
     window.location.href = `${redirectUri}`
   }
 
@@ -149,15 +161,20 @@ const SalesforceSwitch = () => {
         </div>
       ) : (
         <div>
-          <h3>Successfully connected to Salesforce!       <button onClick={handleLogout} className='logout'>Logout</button></h3>
-          
+          <div className='heading'>
+          <h3>Successfully connected to Salesforce!  </h3>     
+          <button onClick={handleLogout} className='logout'>Logout</button>
+          </div>
           <div class="button">
             <button onClick={getValidationRules} className="bt1">Get Validation Rules</button>
             <button onClick={deployAll} class="bt2">Deploy changes</button>
             <button onClick={()=>enableAll(true)} className="bt3">Enable all</button>
             <button onClick={()=>enableAll(false)} className="bt4">Disable all</button>
-            
           </div>
+
+          <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal.Body>Your changes are successfully deployed!!</Modal.Body>
+          </Modal>
 
           {validationRules.length > 0 && (
             <div className='table-container'>
