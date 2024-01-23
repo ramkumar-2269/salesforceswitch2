@@ -1,0 +1,76 @@
+.button{
+    margin:20px;
+    display: flex;
+    align-items: row;
+    justify-content: center;
+    
+}
+button{
+    margin-right: 20px;
+    padding:10px;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: aquamarine;
+}
+.bt1{
+    background-color: aqua;
+}
+.bt2{
+    background-color: rgb(0, 255, 145);
+}
+.bt3{
+    background-color: rgb(169, 218, 22);
+}
+.bt4{
+    background-color: rgb(213, 158, 128);
+}
+.login{
+    display: grid;
+    place-items: center;
+    margin-top: 100px;
+  
+}
+.logbt{
+    margin-right: 20px;
+    background-color: rgb(25, 0, 255);
+    padding:10px;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: aquamarine;
+    color:#fff;
+    margin-top: 20px;
+}
+
+
+.table-container {
+    margin: 0 200px; 
+  }
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-color: black;
+    border-style: solid;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  h3{
+    display: flex;
+    align-items: row;
+    justify-content: center;
+    padding-left: 250px;
+  }
+  .logout{
+    margin-left: 200px;
+    background-color: rgb(245, 53, 53);
+  }
