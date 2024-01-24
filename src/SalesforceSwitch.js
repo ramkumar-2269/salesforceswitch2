@@ -109,6 +109,7 @@ const SalesforceSwitch = () => {
       )
       .then((response) => {
         console.log('Validation rule status updated successfully:', response.data);
+        setShowModal(true);
         getValidationRules();
       })
       .catch((error) => {
@@ -123,7 +124,6 @@ const SalesforceSwitch = () => {
     for(let i=0;i<validationRules.length;i++){
       deployChanges(validationRules[i].Id,validationRules[i].Active);
     }
-    setShowModal(true);
     setTimeout(() => {
       handleCloseModal();
     }, 5000);
